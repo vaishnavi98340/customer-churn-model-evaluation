@@ -1,0 +1,193 @@
+# Telecom Customer Churn Prediction - Machine Learning Workflow
+
+## 1. Data Loading
+
+The telecom customer churn dataset is loaded using Pandas.
+
+```python
+df = pd.read_csv("telecom_customer_churn.csv")
+```
+
+The dataset is checked using:
+
+* `head()`
+* `shape`
+* `info()`
+
+---
+
+## 2. Data Cleaning
+
+The dataset is checked for missing values and duplicate records.
+
+### Steps performed:
+
+* Check missing values
+* Remove unnecessary columns
+* Fill categorical missing values using mode
+* Fill numerical missing values using median
+* Remove duplicate rows
+
+The following columns are removed because they are not suitable for prediction:
+
+* Customer ID
+* Churn Category
+* Churn Reason
+* Customer Status
+
+---
+
+## 3. Exploratory Data Analysis (EDA)
+
+EDA is performed to understand the dataset and customer churn patterns.
+
+### EDA includes:
+
+* Descriptive statistics
+* Target variable distribution
+* Correlation heatmap
+* Histograms
+* Boxplots
+
+The target variable is:
+
+```text
+Target
+```
+
+Where:
+
+* `0` = No Churn
+* `1` = Churn
+
+---
+
+## 4. Feature Engineering
+
+Feature engineering is performed to convert categorical data into numerical form.
+
+### Target Encoding
+
+The target variable is converted using Label Encoding.
+
+### Categorical Encoding
+
+Categorical variables are converted using One-Hot Encoding.
+
+```python
+pd.get_dummies()
+```
+
+This makes the data suitable for machine learning models.
+
+---
+
+## 5. Train-Test Split
+
+The dataset is divided into training and testing data.
+
+```text
+80% → Training Data
+20% → Testing Data
+```
+
+The split uses stratification so that the churn and non-churn classes remain balanced.
+
+---
+
+## 6. Weight of Evidence (WOE)
+
+WOE is calculated manually to transform the features based on their relationship with the target variable.
+
+WOE is calculated using:
+
+```text
+WOE = ln(Distribution of Good / Distribution of Bad)
+```
+
+WOE transformation is performed using only the training data.
+
+---
+
+## 7. Information Value (IV)
+
+Information Value is calculated to measure the predictive strength of each feature.
+
+The IV values are sorted from highest to lowest.
+
+Features with:
+
+```text
+IV >= 0.02
+```
+
+are selected for further modeling.
+
+---
+
+## 8. Logistic Regression
+
+Logistic Regression is used as one of the classification models.
+
+The model predicts whether a customer will:
+
+* Churn
+* Not Churn
+
+The model is evaluated using:
+
+* Accuracy
+* Classification Report
+* Confusion Matrix
+
+---
+
+## 9. Decision Tree
+
+A Decision Tree Classifier is trained using the selected WOE-transformed features.
+
+The model is evaluated using:
+
+* Accuracy
+* Classification Report
+* Confusion Matrix
+
+A Decision Tree diagram is also generated to visualize the decision-making process.
+
+---
+
+## 10. Model Comparison
+
+The accuracy of Logistic Regression and Decision Tree is compared.
+
+The model with the higher accuracy is considered the better model for this project.
+
+---
+
+## Final Workflow
+
+```text
+Data Loading
+      ↓
+Data Cleaning
+      ↓
+EDA
+      ↓
+Feature Engineering
+      ↓
+Train-Test Split
+      ↓
+WOE
+      ↓
+IV
+      ↓
+Feature Selection
+      ↓
+Logistic Regression
+      ↓
+Decision Tree
+      ↓
+Model Evaluation
+      ↓
+Model Comparison
+```
